@@ -12,7 +12,7 @@
         "guzzlehttp/guzzle": "~5.3|~6.0",
         "khill/lavacharts": "^3.1",
         "laravel/framework": "5.6.*",
-        "laravel/socialite": "^3.0",
+        "laravel/socialite": "^3.1",
         "laravel/tinker": "^1.0",
         "nesbot/carbon": "^1.25",
         "php-http/guzzle6-adapter": "^1.1"

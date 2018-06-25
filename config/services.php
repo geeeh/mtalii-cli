@@ -36,9 +36,9 @@ return [
     ],
 
     'google' => [
-        'client_id' => '266526477763-d64gkkk7gac0ln80p0ankk0a2j4dslp4.apps.googleusercontent.com',
-        'client_secret' => 'QVX7k0QfXk-4x1X02b0avS5q',
-        'redirect' => 'https://gentle-waters-13972.herokuapp.com/login/google/callback',
+        'client_id'     => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect'      => env('GOOGLE_REDIRECT')
     ],
 
 ];

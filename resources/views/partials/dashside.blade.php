@@ -12,9 +12,6 @@
         <a href="{{route('dashevents')}}" class="list-group-item">
             <img src="/imgs/events.svg" > Events
         </a>
-        <a href="{{route('userprofile')}}" class="list-group-item">
-            <img src="/imgs/user.svg" > profile
-        </a>
         <a href="{{route('gallery')}}" class="list-group-item">
             <img src="/imgs/camear.svg" > Experiences
         </a>

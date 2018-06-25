@@ -3,42 +3,17 @@
     <div class="row">
 <div class="profile">
     <div class="banner">
-    </div>
-
-    <div class="profile-pic">
-        <img src="/imgs/elephants.jpg">
-    </div>
-
-    <div class="profile-info"></div>
-    <button class="btn btn-secondary right" data-toggle="modal" data-target="#exampleModalCenter">
-        <img src="/imgs/add.svg" width="14px" height="14px"> Add profile</button>
-    <div class="row accounts">
-        <div class="col-sm-2"></div>
-        <a class="col-sm-3" href="https://facebook.com"><img src="/imgs/facebook.svg" width="25px" height="25px"> Facebook</a>
-        <a class="col-sm-3" href="https://instagram.com"><img src="/imgs/instagram.svg" width="25px" height="25px"> Instagram</a>
-        <a class="col-sm-3" href="https://linkedin.com"><img src="/imgs/linkedin.svg" width="25px" height="25px"> Linkedin</a>
-    </div>
-    <div class="row counts">
-        <div class="info-card">
-            <h5>COMPANIES</h5>
-            <hr/>
+        <div class="profile-pic">
+            @if($details)
+                <img src="{{$details['photoUrl'] || '#'}}">
+            @endif
         </div>
-        <div class="info-card">
-            <h5>EVENTS CREATED</h5>
-            <hr/>
-        </div>
-        <div class="info-card">
-            <h5>EVENTS ATTENDED</h5>
-            <hr/>
-        </div>
-    </div>
+        <h4>{{$profile->name}}</h4>
+        <p>{{$profile->email}}</p>
 
+        <button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModalCenter">Edit Profile</button>
+    </div>
 </div>
-    <div class="events-attended">
-        <h5>NOTIFICATIONS</h5>
-        <hr/>
-    </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

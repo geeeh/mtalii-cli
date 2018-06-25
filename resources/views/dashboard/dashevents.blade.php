@@ -1,5 +1,6 @@
 @extends('dashboard.stats')
 @section('data-section')
+<div class="row">
 <div class="dash-events-list">
     <div class="row">
         <div class="col-sm-4">
@@ -7,15 +8,6 @@
         </div>
         <div class="col-sm-4">
         </div>
-        <div class="col-sm-4">
-            <form class="search-events right" method="post">
-                <label class="sr-only" for="options">options</label>
-                <select id="options" class="form-control form-control-lg">
-                    @foreach($companies as $company)
-                        <option>{{$company->name}}</option>
-                    @endforeach
-                </select>
-            </form>
         </div>
     </div>
 
@@ -116,7 +108,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
 @foreach($events as $event)
         <div class="list-item">
@@ -128,13 +119,15 @@
                     <h5>{{$event->name}}</h5>
                     <span class="event-date">{{DateTime::createFromFormat('Y-m-d H:i:s', $event->date)->format('D M d Y')}}, {{$event->location}}</span>
                     <p class="description">{{$event->description}}</p>
-                    <p class="event-price"> price: {{$event->cost}}</p>
+                    <p class=""> price: {{$event->cost}}</p>
                     <button class="btn-outline-danger">delete</button>
                 </div>
             </div>
         </div>
     @endforeach
 </div>
+</div>
+
 
 
 @endsection

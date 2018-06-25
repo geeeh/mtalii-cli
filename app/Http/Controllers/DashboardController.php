@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 use App\Company;
 use App\Events;
+use App\Profile;
 use App\User;
+use Illuminate\Http\Request;
 use Lava;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -28,15 +31,14 @@ class DashboardController extends Controller
     {
         $finances = Lava::DataTable();
 
-        $today = Carbon::now();
         $now = Carbon::now();
-        $startDate = $now->subYear();
+        $startDate = Carbon::now()->subYear();
 
         $finances->addDateColumn('month')
             ->addNumberColumn('users')
             ->addNumberColumn('Companies');
 
-        for ($date = $startDate; $date->lte($today); $date->addMonth()) {
+        for ($date = $startDate; $date->lte(Carbon::now()); $date->addMonth()) {
             $users = User::whereMonth('created_at', $date->month)
                 ->whereYear('created_at', $date->year) -> count();
             $companies = Company::whereMonth('created_at', $date->month)
@@ -89,16 +91,15 @@ class DashboardController extends Controller
 
         $events = Lava::DataTable();
 
-        $today = Carbon::now();
         $now = Carbon::now();
-        $startDate = $now->subYear();
+        $startDate = Carbon::now()->subYear();
 
         $events->addDateColumn('Date')
             ->addNumberColumn('Luxury package')
             ->addNumberColumn('Mixed package')
             ->addNumberColumn('Budget package');
 
-        for ($date = $startDate; $date->lte($today); $date->addMonth()) {
+        for ($date = $startDate; $date->lte(Carbon::now()); $date->addMonth()) {
             $luxuryEvents = Events::where('package', 'luxury')
             ->whereMonth('created_at', $date->month)
                 ->whereYear('created_at', $date->year) -> count();
@@ -123,7 +124,29 @@ class DashboardController extends Controller
 
     public function userProfile()
     {
-        return view('dashboard.profile');
+        $details = Profile::where('user',  Auth::user()->id)
+            ->get();
+        dd($details->name);
+        return view('dashboard.profile', ['profile'=> Auth::user(), 'details'=>$details]);
+    }
+
+    public function createUserProfile(Request $request)
+    {
+        $userProfile = new Profile();
+        $userProfile->name =  Auth::user()->name;
+        $userProfile->package = $request->input('package');
+        $userProfile->user = Auth::user()->id;
+
+        $image = $request->file('image');
+        $filename = uniqid(8).'.'.$image->getClientOriginalExtension();
+        $folderName = "uploads/";
+        $destinationPath = $this->publicPath($folderName);
+        $image->move($destinationPath, $filename);
+        $userProfile->photoUrl = $folderName.$filename;
+        $userProfile->save();
+
+        return redirect('profile');
+
     }
 
 }
